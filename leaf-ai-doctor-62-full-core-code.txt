@@ -1,0 +1,1024 @@
+===== README.md =====
+# Leaf Scan AI
+
+AI-Based Crop Disease Detection System: build a mobile-friendly web app prototype featuring an interactive leaf scanner (photo upload and camera capture simulation), AI diagnosis results with confidence scores, organic and chemical treatment recommendations, and a searchable crop disease encyclopedia library.
+
+This project was built with [Lovable](https://lovable.dev).
+
+**Live app**: https://leaf-ai-doctor-62.lovable.app
+
+## Build with Lovable
+
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/d69e823b-011f-48f0-83ce-78207d5e4726).
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+
+```sh
+git clone <this-repository-url>
+cd <repository-name>
+npm i
+npm run dev
+```
+
+===== package.json =====
+{
+  "name": "tanstack_start_ts",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "overrides": {
+    "rolldown": "1.2.1"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-alert-dialog": "^1.1.15",
+    "@radix-ui/react-aspect-ratio": "^1.1.8",
+    "@radix-ui/react-avatar": "^1.1.11",
+    "@radix-ui/react-checkbox": "^1.3.3",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-context-menu": "^2.2.16",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-hover-card": "^1.1.15",
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-menubar": "^1.1.16",
+    "@radix-ui/react-navigation-menu": "^1.2.14",
+    "@radix-ui/react-popover": "^1.1.15",
+    "@radix-ui/react-progress": "^1.1.8",
+    "@radix-ui/react-radio-group": "^1.3.8",
+    "@radix-ui/react-scroll-area": "^1.2.10",
+    "@radix-ui/react-select": "^2.2.6",
+    "@radix-ui/react-separator": "^1.1.8",
+    "@radix-ui/react-slider": "^1.3.6",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-toggle": "^1.1.10",
+    "@radix-ui/react-toggle-group": "^1.1.11",
+    "@radix-ui/react-tooltip": "^1.2.8",
+    "@tailwindcss/vite": "^4.2.1",
+    "@tanstack/react-query": "^5.101.1",
+    "@tanstack/react-router": "1.170.18",
+    "@tanstack/react-start": "1.168.32",
+    "@tanstack/router-plugin": "1.168.23",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "date-fns": "^4.1.0",
+    "embla-carousel-react": "^8.6.0",
+    "input-otp": "^1.4.2",
+    "lucide-react": "^0.575.0",
+    "react": "^19.2.0",
+    "react-day-picker": "^9.14.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.71.2",
+    "react-resizable-panels": "^4.6.5",
+    "recharts": "^2.15.4",
+    "sonner": "^2.0.7",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^4.2.1",
+    "tw-animate-css": "^1.3.4",
+    "vaul": "^1.1.2",
+    "vite-tsconfig-paths": "^6.0.2",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@lovable.dev/vite-tanstack-config": "^2.24.0",
+    "@types/node": "^22.16.5",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^15.15.0",
+    "nitro": "3.0.260603-beta",
+    "prettier": "^3.7.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.56.1",
+    "vite": "8.1.5"
+  }
+}
+
+===== vite.config.ts =====
+// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually
+// or the app will break with duplicate plugins:
+//   - TanStack devtools (dev-only, first), tanstackStart, viteReact, tailwindcss, tsConfigPaths,
+//     nitro (build-only using cloudflare as a default target), VITE_* env injection, @ path alias,
+//     React/TanStack dedupe, error logger plugins, and sandbox detection (port/host/strictPort).
+// You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
+import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+
+export default defineConfig({
+  tanstackStart: {
+    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+    // nitro/vite builds from this
+    server: { entry: "server" },
+  },
+});
+
+===== tsconfig.json =====
+{
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vite.config.ts", "eslint.config.js"],
+  "compilerOptions": {
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["vite/client"],
+
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": false,
+    "noEmit": true,
+
+    "skipLibCheck": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedSideEffectImports": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+
+===== src/router.tsx =====
+import { QueryClient } from "@tanstack/react-query";
+import { createRouter } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+
+export const getRouter = () => {
+  const queryClient = new QueryClient();
+
+  const router = createRouter({
+    routeTree,
+    context: { queryClient },
+    scrollRestoration: true,
+    defaultPreloadStaleTime: 0,
+  });
+
+  return router;
+};
+
+===== src/start.ts =====
+import { createStart, createCsrfMiddleware, createMiddleware } from "@tanstack/react-start";
+
+import { renderErrorPage } from "./lib/error-page";
+
+const errorMiddleware = createMiddleware().server(async ({ next }) => {
+  try {
+    return await next();
+  } catch (error) {
+    if (error != null && typeof error === "object" && "statusCode" in error) {
+      throw error;
+    }
+    console.error(error);
+    return new Response(renderErrorPage(), {
+      status: 500,
+      headers: { "content-type": "text/html; charset=utf-8" },
+    });
+  }
+});
+
+// Start installs this automatically when src/start.ts is absent; defining the
+// file opts out, so re-add it explicitly to keep server functions protected
+// from cross-site requests.
+const csrfMiddleware = createCsrfMiddleware({
+  filter: (ctx) => ctx.handlerType === "serverFn",
+});
+
+export const startInstance = createStart(() => ({
+  requestMiddleware: [errorMiddleware, csrfMiddleware],
+}));
+
+===== src/server.ts =====
+import "./lib/error-capture";
+
+import { consumeLastCapturedError } from "./lib/error-capture";
+import { renderErrorPage } from "./lib/error-page";
+
+type ServerEntry = {
+  fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
+};
+
+let serverEntryPromise: Promise<ServerEntry> | undefined;
+
+async function getServerEntry(): Promise<ServerEntry> {
+  if (!serverEntryPromise) {
+    serverEntryPromise = import("@tanstack/react-start/server-entry").then(
+      (m) => (m.default ?? m) as ServerEntry,
+    );
+  }
+  return serverEntryPromise;
+}
+
+// h3 swallows in-handler throws into a normal 500 Response with body
+// {"unhandled":true,"message":"HTTPError"} — try/catch alone never fires for those.
+async function normalizeCatastrophicSsrResponse(response: Response): Promise<Response> {
+  if (response.status < 500) return response;
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("application/json")) return response;
+
+  const body = await response.clone().text();
+  if (!isH3SwallowedErrorBody(body)) return response;
+
+  console.error(consumeLastCapturedError() ?? new Error(`h3 swallowed SSR error: ${body}`));
+  return new Response(renderErrorPage(), {
+    status: 500,
+    headers: { "content-type": "text/html; charset=utf-8" },
+  });
+}
+
+function isH3SwallowedErrorBody(body: string): boolean {
+  try {
+    const payload = JSON.parse(body) as { unhandled?: unknown; message?: unknown };
+    return payload.unhandled === true && payload.message === "HTTPError";
+  } catch {
+    return false;
+  }
+}
+
+export default {
+  async fetch(request: Request, env: unknown, ctx: unknown) {
+    try {
+      const handler = await getServerEntry();
+      const response = await handler.fetch(request, env, ctx);
+      return await normalizeCatastrophicSsrResponse(response);
+    } catch (error) {
+      console.error(error);
+      return new Response(renderErrorPage(), {
+        status: 500,
+        headers: { "content-type": "text/html; charset=utf-8" },
+      });
+    }
+  },
+};
+
+===== src/components/AppShell.tsx =====
+import { Link } from "@tanstack/react-router";
+import { ScanLine, BookOpen, Leaf } from "lucide-react";
+import type { ReactNode } from "react";
+
+export function AppShell({ children }: { children: ReactNode }) {
+  const item = "flex flex-1 flex-col items-center gap-1 py-2 text-xs text-muted-foreground";
+  return (
+    <div className="mx-auto min-h-screen max-w-md bg-background pb-20">
+      <header className="flex items-center gap-2 px-5 pt-6 pb-3">
+        <div className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground"><Leaf size={18} /></div>
+        <span className="font-display text-xl">LeafDoctor</span>
+        <Link to="/login" className="ml-auto text-sm font-medium text-primary">Sign in</Link>
+      </header>
+      {children}
+      <nav className="fixed inset-x-0 bottom-0 mx-auto flex max-w-md border-t bg-card">
+        <Link to="/" className={item} activeProps={{ className: "text-primary font-semibold" }} activeOptions={{ exact: true }}><ScanLine size={20} />Scan</Link>
+        <Link to="/library" className={item} activeProps={{ className: "text-primary font-semibold" }}><BookOpen size={20} />Library</Link>
+      </nav>
+    </div>
+  );
+}
+
+export function TreatmentBlock({ title, items, tone }: { title: string; items: string[]; tone: "organic" | "chemical" }) {
+  return (
+    <div className={`rounded-xl p-4 ${tone === "organic" ? "bg-secondary" : "bg-accent"}`}>
+      <h4 className="mb-2 text-sm font-semibold">{title}</h4>
+      <ul className="space-y-1 text-sm">{items.map((i) => <li key={i}>• {i}</li>)}</ul>
+    </div>
+  );
+}
+
+===== src/routes/login.tsx =====
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { Leaf, Mail, Lock, Loader2 } from "lucide-react";
+import bg from "@/assets/login-bg.jpg";
+
+export const Route = createFileRoute("/login")({
+  head: () => ({
+    meta: [
+      { title: "Sign in — LeafDoctor" },
+      { name: "description", content: "Sign in to LeafDoctor to scan leaves and track your crop health." },
+      { property: "og:title", content: "Sign in — LeafDoctor" },
+      { property: "og:description", content: "Sign in to LeafDoctor to scan leaves and track crop health." },
+    ],
+  }),
+  component: Login,
+});
+
+function Login() {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setTimeout(() => navigate({ to: "/" }), 900);
+  };
+  return (
+    <div className="relative min-h-screen overflow-hidden">
+      <img src={bg} alt="" className="absolute inset-0 h-full w-full scale-105 object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-foreground/10 via-foreground/40 to-foreground/90" />
+      <div className="relative mx-auto flex min-h-screen max-w-md flex-col justify-between px-6 py-10">
+        <div className="flex items-center gap-2 text-primary-foreground">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-primary"><Leaf size={20} /></div>
+          <span className="font-display text-2xl">LeafDoctor</span>
+        </div>
+        <div>
+          <h1 className="font-display text-4xl leading-tight text-primary-foreground">Healthy leaves,<br /><em>healthier harvests.</em></h1>
+          <p className="mt-2 text-sm text-primary-foreground/80">Sign in to diagnose your crops in seconds.</p>
+          <form onSubmit={submit} className="mt-6 space-y-3 rounded-3xl border border-primary-foreground/20 bg-background/15 p-5 backdrop-blur-xl">
+            <label className="flex items-center gap-3 rounded-xl bg-card/90 px-4 py-3">
+              <Mail size={18} className="text-muted-foreground" />
+              <input required type="email" placeholder="Email" className="w-full bg-transparent text-sm outline-none" />
+            </label>
+            <label className="flex items-center gap-3 rounded-xl bg-card/90 px-4 py-3">
+              <Lock size={18} className="text-muted-foreground" />
+              <input required type="password" placeholder="Password" className="w-full bg-transparent text-sm outline-none" />
+            </label>
+            <button disabled={loading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-medium text-primary-foreground">
+              {loading && <Loader2 size={16} className="animate-spin" />}Sign in
+            </button>
+            <p className="text-center text-xs text-primary-foreground/80">
+              New here? <Link to="/login" className="font-semibold underline">Create an account</Link>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+===== src/routes/index.tsx =====
+import { createFileRoute } from "@tanstack/react-router";
+import { useRef, useState } from "react";
+import { Camera, Upload, RotateCcw, Loader2 } from "lucide-react";
+import { AppShell, TreatmentBlock } from "@/components/AppShell";
+import { DISEASES, type Disease } from "@/lib/diseases";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "LeafDoctor — AI Crop Disease Scanner" },
+      { name: "description", content: "Scan a leaf photo to detect crop diseases and get organic and chemical treatments." },
+      { property: "og:title", content: "LeafDoctor — AI Crop Disease Scanner" },
+      { property: "og:description", content: "Scan a leaf photo to detect crop diseases and get treatments." },
+    ],
+  }),
+  component: Scanner,
+});
+
+type Result = { top: Disease; confidence: number; others: { d: Disease; c: number }[] };
+
+function diagnose(): Result {
+  const pool = [...DISEASES].sort(() => Math.random() - 0.5);
+  const confidence = 78 + Math.random() * 20;
+  const rest = 100 - confidence;
+  const a = rest * (0.5 + Math.random() * 0.3);
+  return { top: pool[0]!, confidence, others: [{ d: pool[1]!, c: a }, { d: pool[2]!, c: rest - a }] };
+}
+
+function Scanner() {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const camRef = useRef<HTMLInputElement>(null);
+  const [img, setImg] = useState<string | null>(null);
+  const [scanning, setScanning] = useState(false);
+  const [result, setResult] = useState<Result | null>(null);
+
+  const onFile = (f?: File) => {
+    if (!f) return;
+    setImg(URL.createObjectURL(f));
+    setResult(null);
+    setScanning(true);
+    setTimeout(() => { setResult(diagnose()); setScanning(false); }, 2400);
+  };
+  const reset = () => { setImg(null); setResult(null); setScanning(false); };
+
+  return (
+    <AppShell>
+      <section className="px-5">
+        <h1 className="font-display text-3xl leading-tight">Check your crop's health</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Photograph a single leaf in good light.</p>
+
+        <div className="relative mt-5 aspect-square overflow-hidden rounded-3xl border-2 border-dashed border-primary/40 bg-card">
+          {img ? <img src={img} alt="Leaf" className="h-full w-full object-cover" /> : (
+            <div className="grid h-full place-items-center text-center text-muted-foreground">
+              <div><div className="mx-auto mb-3 h-24 w-24 rounded-full border-4 border-primary/30" /><p className="text-sm">Align the leaf inside the frame</p></div>
+            </div>
+          )}
+          {scanning && (
+            <>
+              <div className="scan-line absolute inset-x-0 h-1 bg-primary shadow-[0_0_20px] shadow-primary" />
+              <div className="absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 bg-background/80 py-3 text-sm"><Loader2 className="animate-spin" size={16} />Analysing leaf patterns…</div>
+            </>
+          )}
+        </div>
+
+        <input ref={fileRef} type="file" accept="image/*" hidden onChange={(e) => onFile(e.target.files?.[0])} />
+        <input ref={camRef} type="file" accept="image/*" capture="environment" hidden onChange={(e) => onFile(e.target.files?.[0])} />
+        {!img ? (
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <button onClick={() => camRef.current?.click()} className="flex items-center justify-center gap-2 rounded-xl bg-primary py-3 font-medium text-primary-foreground"><Camera size={18} />Camera</button>
+            <button onClick={() => fileRef.current?.click()} className="flex items-center justify-center gap-2 rounded-xl border bg-card py-3 font-medium"><Upload size={18} />Upload</button>
+          </div>
+        ) : (
+          <button onClick={reset} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border bg-card py-3 font-medium"><RotateCcw size={18} />Scan another leaf</button>
+        )}
+      </section>
+
+      {result && (
+        <section className="mt-6 space-y-4 px-5">
+          <div className="rounded-2xl bg-card p-5 shadow-sm">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">Diagnosis · {result.top.crop}</p>
+            <h2 className="font-display text-2xl">{result.top.name}</h2>
+            <p className="text-sm italic text-muted-foreground">{result.top.pathogen}</p>
+            <div className="mt-4 flex items-center justify-between text-sm"><span>Confidence</span><span className="font-semibold">{result.confidence.toFixed(1)}%</span></div>
+            <div className="mt-1 h-2 rounded-full bg-muted"><div className="h-2 rounded-full bg-primary" style={{ width: `${result.confidence}%` }} /></div>
+            <p className="mt-3 inline-block rounded-full bg-accent px-3 py-1 text-xs">Severity: {result.top.severity}</p>
+            <div className="mt-4 space-y-1 text-xs text-muted-foreground">
+              {result.others.map((o) => <div key={o.d.id} className="flex justify-between"><span>{o.d.crop} · {o.d.name}</span><span>{o.c.toFixed(1)}%</span></div>)}
+            </div>
+          </div>
+          <div className="rounded-2xl bg-card p-5">
+            <h3 className="mb-2 font-semibold">Symptoms</h3>
+            <ul className="space-y-1 text-sm">{result.top.symptoms.map((s) => <li key={s}>• {s}</li>)}</ul>
+          </div>
+          <TreatmentBlock title="🌿 Organic treatment" items={result.top.organic} tone="organic" />
+          <TreatmentBlock title="🧪 Chemical treatment" items={result.top.chemical} tone="chemical" />
+          <p className="rounded-xl bg-muted p-4 text-sm"><b>Prevention:</b> {result.top.prevention}</p>
+          <p className="pb-4 text-center text-xs text-muted-foreground">Prototype — results are simulated. Consult an agronomist before spraying.</p>
+        </section>
+      )}
+    </AppShell>
+  );
+}
+
+===== src/routes/library.tsx =====
+import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
+import { Search, ChevronDown } from "lucide-react";
+import { AppShell, TreatmentBlock } from "@/components/AppShell";
+import { DISEASES } from "@/lib/diseases";
+
+export const Route = createFileRoute("/library")({
+  head: () => ({
+    meta: [
+      { title: "Crop Disease Encyclopedia — LeafDoctor" },
+      { name: "description", content: "Search crop diseases by name, crop or symptom with organic and chemical treatments." },
+      { property: "og:title", content: "Crop Disease Encyclopedia — LeafDoctor" },
+      { property: "og:description", content: "Searchable library of crop diseases and treatments." },
+    ],
+  }),
+  component: Library,
+});
+
+function Library() {
+  const [q, setQ] = useState("");
+  const [crop, setCrop] = useState("All");
+  const [open, setOpen] = useState<string | null>(null);
+  const crops = ["All", ...new Set(DISEASES.filter((d) => d.id !== "healthy").map((d) => d.crop))];
+  const list = useMemo(() => DISEASES.filter((d) => d.id !== "healthy")
+    .filter((d) => crop === "All" || d.crop === crop)
+    .filter((d) => (d.name + d.crop + d.pathogen + d.symptoms.join(" ")).toLowerCase().includes(q.toLowerCase())), [q, crop]);
+
+  return (
+    <AppShell>
+      <section className="px-5">
+        <h1 className="font-display text-3xl">Disease library</h1>
+        <div className="mt-4 flex items-center gap-2 rounded-xl border bg-card px-3">
+          <Search size={18} className="text-muted-foreground" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search disease, crop, symptom…" className="w-full bg-transparent py-3 text-sm outline-none" />
+        </div>
+        <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
+          {crops.map((c) => (
+            <button key={c} onClick={() => setCrop(c)} className={`shrink-0 rounded-full px-3 py-1 text-sm ${crop === c ? "bg-primary text-primary-foreground" : "border bg-card"}`}>{c}</button>
+          ))}
+        </div>
+        <div className="mt-4 space-y-3">
+          {list.length === 0 && <p className="py-8 text-center text-sm text-muted-foreground">No diseases match your search.</p>}
+          {list.map((d) => (
+            <div key={d.id} className="rounded-2xl bg-card p-4">
+              <button className="flex w-full items-center justify-between text-left" onClick={() => setOpen(open === d.id ? null : d.id)}>
+                <div>
+                  <p className="text-xs text-muted-foreground">{d.crop} · {d.severity} risk</p>
+                  <p className="font-display text-lg">{d.name}</p>
+                </div>
+                <ChevronDown className={`transition ${open === d.id ? "rotate-180" : ""}`} size={18} />
+              </button>
+              {open === d.id && (
+                <div className="mt-3 space-y-3 text-sm">
+                  <p className="italic text-muted-foreground">{d.pathogen}</p>
+                  {d.overview && <p>{d.overview}</p>}
+                  {(d.parts || d.spread || d.conditions) && (
+                    <div className="grid gap-2 rounded-xl bg-muted p-3 text-xs">
+                      {d.parts && <p><b>Affects:</b> {d.parts}</p>}
+                      {d.spread && <p><b>Spreads by:</b> {d.spread}</p>}
+                      {d.conditions && <p><b>Favoured by:</b> {d.conditions}</p>}
+                    </div>
+                  )}
+                  <h4 className="font-semibold">Symptoms</h4>
+                  <ul className="space-y-1">{d.symptoms.map((s) => <li key={s}>• {s}</li>)}</ul>
+                  <TreatmentBlock title="🌿 Organic" items={d.organic} tone="organic" />
+                  <TreatmentBlock title="🧪 Chemical" items={d.chemical} tone="chemical" />
+                  <p><b>Prevention:</b> {d.prevention}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
+    </AppShell>
+  );
+}
+
+===== src/routes/__root.tsx =====
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Outlet,
+  Link,
+  createRootRouteWithContext,
+  useRouter,
+  HeadContent,
+  Scripts,
+} from "@tanstack/react-router";
+import { useEffect, type ReactNode } from "react";
+
+import appCss from "../styles.css?url";
+import { reportLovableError } from "../lib/lovable-error-reporting";
+
+function NotFoundComponent() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-7xl font-bold text-foreground">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          The page you're looking for doesn't exist or has been moved.
+        </p>
+        <div className="mt-6">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Go home
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+  console.error(error);
+  const router = useRouter();
+  useEffect(() => {
+    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+  }, [error]);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Something went wrong on our end. You can try refreshing or head back home.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-2">
+          <button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Try again
+          </button>
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+          >
+            Go home
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  head: () => ({
+    meta: [
+      { charSet: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { title: "LeafDoctor" },
+      { name: "description", content: "AI crop disease detection" },
+      { name: "author", content: "Lovable" },
+            { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@Lovable" },
+    ],
+    links: [
+      {
+        rel: "stylesheet",
+        href: appCss,
+      },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@500;600&display=swap" },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+  }),
+  shellComponent: RootShell,
+  component: RootComponent,
+  notFoundComponent: NotFoundComponent,
+  errorComponent: ErrorComponent,
+});
+
+function RootShell({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  );
+}
+
+function RootComponent() {
+  const { queryClient } = Route.useRouteContext();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+    </QueryClientProvider>
+  );
+}
+
+===== src/lib/diseases.ts =====
+export type Disease = {
+  id: string;
+  name: string;
+  crop: string;
+  pathogen: string;
+  severity: "Low" | "Moderate" | "High";
+  symptoms: string[];
+  organic: string[];
+  chemical: string[];
+  prevention: string;
+  overview?: string;
+  spread?: string;
+  conditions?: string;
+  parts?: string;
+};
+
+export const DISEASES: Disease[] = [
+  { id: "tomato-early-blight", name: "Early Blight", crop: "Tomato", pathogen: "Alternaria solani (fungus)", severity: "Moderate",
+    symptoms: ["Brown spots with concentric rings", "Yellowing around lesions", "Lower leaves affected first"],
+    organic: ["Remove infected lower leaves", "Spray neem oil every 7 days", "Apply Bacillus subtilis bio-fungicide"],
+    chemical: ["Chlorothalonil 75% WP @ 2 g/L", "Mancozeb 75% WP @ 2.5 g/L"],
+    prevention: "Rotate crops for 2–3 years, mulch soil, water at the base." },
+  { id: "tomato-late-blight", name: "Late Blight", crop: "Tomato", pathogen: "Phytophthora infestans (oomycete)", severity: "High",
+    symptoms: ["Water-soaked grey-green patches", "White mold under leaves in humidity", "Rapid plant collapse"],
+    organic: ["Destroy infected plants immediately", "Copper hydroxide spray (organic-approved)"],
+    chemical: ["Metalaxyl + Mancozeb @ 2.5 g/L", "Cymoxanil 8% + Mancozeb 64% @ 3 g/L"],
+    prevention: "Use resistant varieties, avoid overhead irrigation, ensure airflow." },
+  { id: "potato-late-blight", name: "Late Blight", crop: "Potato", pathogen: "Phytophthora infestans", severity: "High",
+    symptoms: ["Dark lesions on leaf tips", "Brown rot on tubers", "Foul smell in fields"],
+    organic: ["Hill soil around plants", "Copper-based sprays at first sign"],
+    chemical: ["Dimethomorph 50% WP @ 1 g/L", "Mancozeb @ 2.5 g/L preventive"],
+    prevention: "Plant certified seed tubers and remove volunteer plants." },
+  { id: "rice-blast", name: "Rice Blast", crop: "Rice", pathogen: "Magnaporthe oryzae (fungus)", severity: "High",
+    symptoms: ["Diamond-shaped lesions with grey centre", "Neck rot of panicles", "Empty grains"],
+    organic: ["Pseudomonas fluorescens seed treatment @ 10 g/kg", "Silica-rich amendments"],
+    chemical: ["Tricyclazole 75% WP @ 0.6 g/L", "Isoprothiolane 40% EC @ 1.5 ml/L"],
+    prevention: "Avoid excess nitrogen, keep fields flooded evenly." },
+  { id: "wheat-rust", name: "Leaf Rust", crop: "Wheat", pathogen: "Puccinia triticina (fungus)", severity: "Moderate",
+    symptoms: ["Orange-brown pustules on leaves", "Powdery spores rub off", "Reduced grain fill"],
+    organic: ["Sulphur dust @ 25 kg/ha", "Remove volunteer wheat"],
+    chemical: ["Propiconazole 25% EC @ 1 ml/L", "Tebuconazole 25.9% EC @ 1 ml/L"],
+    prevention: "Grow rust-resistant varieties and sow on time." },
+  { id: "corn-leaf-blight", name: "Northern Leaf Blight", crop: "Maize", pathogen: "Exserohilum turcicum", severity: "Moderate",
+    symptoms: ["Long cigar-shaped grey lesions", "Lesions merge to blight leaves"],
+    organic: ["Trichoderma soil application", "Deep plough crop residue"],
+    chemical: ["Azoxystrobin 23% SC @ 1 ml/L", "Mancozeb @ 2.5 g/L"],
+    prevention: "Rotate with legumes, choose tolerant hybrids." },
+  { id: "grape-powdery", name: "Powdery Mildew", crop: "Grape", pathogen: "Erysiphe necator (fungus)", severity: "Moderate",
+    symptoms: ["White powdery coating", "Curled, distorted leaves", "Cracked berries"],
+    organic: ["Milk spray (1:9 with water)", "Potassium bicarbonate @ 5 g/L", "Wettable sulphur"],
+    chemical: ["Hexaconazole 5% EC @ 1 ml/L", "Myclobutanil 10% WP @ 0.4 g/L"],
+    prevention: "Prune for sunlight penetration and airflow." },
+  { id: "citrus-canker", name: "Citrus Canker", crop: "Citrus", pathogen: "Xanthomonas citri (bacteria)", severity: "High",
+    symptoms: ["Raised corky lesions with yellow halo", "Premature fruit drop"],
+    organic: ["Prune and burn infected twigs", "Copper oxychloride (organic grade)"],
+    chemical: ["Streptocycline 100 ppm + Copper oxychloride 3 g/L"],
+    prevention: "Use windbreaks, disinfect tools, control leaf miners." },
+  { id: "banana-sigatoka", name: "Black Sigatoka", crop: "Banana", pathogen: "Pseudocercospora fijiensis (fungus)", severity: "High", overview: "A major leaf-spot disease that cuts photosynthesis and can halve yields.", spread: "Wind-borne and rain-splashed spores", conditions: "Warm (25–28°C), humid, rainy weather", parts: "Leaves",
+    symptoms: ["Small reddish-brown streaks on leaves", "Streaks turn black with yellow halo", "Large dead leaf areas", "Premature fruit ripening"],
+    organic: ["Cut and remove infected leaves (deleafing)", "Spray neem-based fungicide", "Apply Trichoderma to soil"],
+    chemical: ["Propiconazole 25% EC @ 1 ml/L", "Mancozeb 75% WP @ 2.5 g/L"],
+    prevention: "Good drainage, wide spacing, remove old leaves regularly." },
+  { id: "mango-anthracnose", name: "Anthracnose", crop: "Mango", pathogen: "Colletotrichum gloeosporioides (fungus)", severity: "High", overview: "Damages flowers, young fruit and leaves; causes major post-harvest losses.", spread: "Rain splash and dew", conditions: "Wet, humid weather during flowering", parts: "Leaves, flowers, fruit",
+    symptoms: ["Black irregular spots on leaves", "Blossom blight and flower drop", "Sunken black spots on ripe fruit"],
+    organic: ["Prune dead twigs and burn", "Hot-water fruit dip (52°C, 5 min)", "Copper oxychloride spray"],
+    chemical: ["Carbendazim 50% WP @ 1 g/L", "Azoxystrobin 23% SC @ 1 ml/L"],
+    prevention: "Open canopy pruning, spray before flowering in wet seasons." },
+  { id: "cotton-leaf-curl", name: "Leaf Curl Virus", crop: "Cotton", pathogen: "Cotton leaf curl virus (Begomovirus)", severity: "High", overview: "A viral disease causing stunting and heavy boll loss.", spread: "Whiteflies (Bemisia tabaci)", conditions: "Hot, dry weather favouring whiteflies", parts: "Leaves, whole plant",
+    symptoms: ["Upward or downward leaf curling", "Thickened dark-green veins", "Leaf-like outgrowths under leaves", "Stunted plants"],
+    organic: ["Yellow sticky traps", "Neem oil 5 ml/L against whiteflies", "Remove infected plants early"],
+    chemical: ["Imidacloprid 17.8% SL @ 0.3 ml/L (for vectors)", "Diafenthiuron 50% WP @ 1.2 g/L"],
+    prevention: "Plant tolerant varieties and remove weed hosts." },
+  { id: "sugarcane-red-rot", name: "Red Rot", crop: "Sugarcane", pathogen: "Colletotrichum falcatum (fungus)", severity: "High", overview: "Called the 'cancer of sugarcane'; destroys stalks and sugar content.", spread: "Infected setts, water and soil", conditions: "Waterlogging and high humidity", parts: "Stalk, leaves",
+    symptoms: ["Yellowing and drying of top leaves", "Red inner stalk with white patches", "Sour alcoholic smell when split"],
+    organic: ["Hot-water sett treatment (50°C, 2 h)", "Trichoderma sett dip"],
+    chemical: ["Carbendazim 0.1% sett dip for 15 min"],
+    prevention: "Use healthy setts, resistant varieties, rotate crops." },
+  { id: "groundnut-tikka", name: "Tikka Leaf Spot", crop: "Groundnut", pathogen: "Cercospora arachidicola (fungus)", severity: "Moderate", overview: "Common leaf spot causing early leaf fall and pod loss.", spread: "Wind and rain splash", conditions: "Humid weather, 25–30°C", parts: "Leaves, stems",
+    symptoms: ["Circular brown spots with yellow halo", "Dark spots under leaves", "Early leaf drop"],
+    organic: ["Neem leaf extract spray 5%", "Remove crop residues"],
+    chemical: ["Chlorothalonil 75% WP @ 2 g/L", "Tebuconazole 25.9% EC @ 1 ml/L"],
+    prevention: "Crop rotation and timely sowing." },
+  { id: "chilli-dieback", name: "Dieback & Fruit Rot", crop: "Chilli", pathogen: "Colletotrichum capsici (fungus)", severity: "High", overview: "Twigs dry from the tip downwards and fruits rot.", spread: "Seed, rain splash", conditions: "Warm, wet weather", parts: "Twigs, fruit",
+    symptoms: ["Twigs die back from the tip", "Sunken spots on ripe fruit", "Black dots in lesions"],
+    organic: ["Seed treatment with Trichoderma 4 g/kg", "Remove dried twigs"],
+    chemical: ["Mancozeb 75% WP @ 2.5 g/L", "Difenoconazole 25% EC @ 0.5 ml/L"],
+    prevention: "Use disease-free seed and good field sanitation." },
+  { id: "brinjal-wilt", name: "Bacterial Wilt", crop: "Brinjal", pathogen: "Ralstonia solanacearum (bacteria)", severity: "High", overview: "Plants wilt suddenly while leaves are still green.", spread: "Soil, water, tools", conditions: "Hot, moist soil", parts: "Roots, stem",
+    symptoms: ["Sudden wilting of green plant", "Brown inner stem", "Milky ooze when stem cut in water"],
+    organic: ["Soil application of Pseudomonas fluorescens", "Bleaching powder soil drench 15 kg/ha"],
+    chemical: ["Copper oxychloride 3 g/L soil drench"],
+    prevention: "Rotate with cereals, grafting on resistant rootstock." },
+  { id: "okra-yvmv", name: "Yellow Vein Mosaic", crop: "Okra", pathogen: "Bhendi yellow vein mosaic virus", severity: "High", overview: "Most serious okra disease; fruits become yellow and hard.", spread: "Whiteflies", conditions: "Summer and rainy seasons", parts: "Leaves, fruit",
+    symptoms: ["Yellow network of veins", "Whole leaf turns yellow", "Small, pale, tough pods"],
+    organic: ["Yellow sticky traps", "Neem seed kernel extract 5%", "Uproot infected plants"],
+    chemical: ["Thiamethoxam 25% WG @ 0.3 g/L (for whitefly)"],
+    prevention: "Grow resistant varieties and control weeds." },
+  { id: "onion-purple-blotch", name: "Purple Blotch", crop: "Onion", pathogen: "Alternaria porri (fungus)", severity: "Moderate", overview: "Leaf disease that reduces bulb size and storage quality.", spread: "Air-borne spores", conditions: "High humidity, 25–30°C", parts: "Leaves, seed stalks",
+    symptoms: ["Small white sunken spots", "Purple centre with yellow border", "Leaves collapse"],
+    organic: ["Trichoderma spray", "Wider spacing for airflow"],
+    chemical: ["Mancozeb 75% WP @ 2.5 g/L", "Tebuconazole @ 1 ml/L"],
+    prevention: "Crop rotation and remove debris." },
+  { id: "cucumber-downy", name: "Downy Mildew", crop: "Cucumber", pathogen: "Pseudoperonospora cubensis (oomycete)", severity: "High", overview: "Fast-spreading disease that can kill vines within weeks.", spread: "Wind-blown spores", conditions: "Cool nights, wet leaves", parts: "Leaves",
+    symptoms: ["Angular yellow patches between veins", "Grey-purple fuzz underneath", "Leaves dry and curl"],
+    organic: ["Copper hydroxide spray", "Water early in the day"],
+    chemical: ["Metalaxyl + Mancozeb @ 2.5 g/L", "Cymoxanil + Mancozeb @ 3 g/L"],
+    prevention: "Resistant varieties, trellising for airflow." },
+  { id: "apple-scab", name: "Apple Scab", crop: "Apple", pathogen: "Venturia inaequalis (fungus)", severity: "Moderate", overview: "Causes scabby fruit that cannot be sold fresh.", spread: "Spores from fallen leaves", conditions: "Cool wet spring", parts: "Leaves, fruit",
+    symptoms: ["Olive-green velvety spots", "Cracked corky fruit spots", "Early leaf fall"],
+    organic: ["Rake and destroy fallen leaves", "Sulphur sprays in spring"],
+    chemical: ["Captan 50% WP @ 2 g/L", "Difenoconazole @ 0.3 ml/L"],
+    prevention: "Plant scab-resistant varieties, prune for airflow." },
+  { id: "strawberry-grey-mold", name: "Grey Mould", crop: "Strawberry", pathogen: "Botrytis cinerea (fungus)", severity: "Moderate", overview: "Rots berries in the field and after picking.", spread: "Air-borne spores", conditions: "Cool, damp, cloudy weather", parts: "Flowers, fruit",
+    symptoms: ["Soft brown rot on berries", "Fluffy grey mould growth", "Blighted flowers"],
+    organic: ["Straw mulch to keep fruit dry", "Remove rotten fruit daily", "Bacillus subtilis spray"],
+    chemical: ["Iprodione 50% WP @ 2 g/L", "Fenhexamid @ 1.5 ml/L"],
+    prevention: "Avoid overhead watering, harvest often." },
+  { id: "soybean-rust", name: "Soybean Rust", crop: "Soybean", pathogen: "Phakopsora pachyrhizi (fungus)", severity: "High", overview: "Causes rapid defoliation and yield losses up to 80%.", spread: "Wind over long distances", conditions: "Long leaf wetness, 15–28°C", parts: "Leaves",
+    symptoms: ["Tan to red-brown tiny lesions", "Raised pustules under leaves", "Early yellowing and leaf drop"],
+    organic: ["Early sowing to escape disease", "Sulphur dust"],
+    chemical: ["Hexaconazole 5% EC @ 2 ml/L", "Propiconazole @ 1 ml/L"],
+    prevention: "Scout often; use tolerant varieties." },
+  { id: "papaya-ringspot", name: "Ringspot Virus", crop: "Papaya", pathogen: "Papaya ringspot virus (Potyvirus)", severity: "High", overview: "Can wipe out whole orchards; no cure once infected.", spread: "Aphids", conditions: "All seasons, worse in dry spells", parts: "Leaves, fruit",
+    symptoms: ["Mottled yellow leaves", "Dark rings on fruit", "Oily streaks on stems"],
+    organic: ["Remove infected trees", "Border crop of maize as barrier"],
+    chemical: ["Dimethoate 30% EC @ 1.5 ml/L (aphid control)"],
+    prevention: "Use virus-free seedlings, avoid growing near cucurbits." },
+  { id: "coffee-rust", name: "Coffee Leaf Rust", crop: "Coffee", pathogen: "Hemileia vastatrix (fungus)", severity: "High", overview: "The most destructive coffee disease worldwide.", spread: "Wind and rain", conditions: "Warm, humid, rainy weather", parts: "Leaves",
+    symptoms: ["Yellow-orange powdery spots underneath", "Pale spots on top", "Heavy leaf drop"],
+    organic: ["Bordeaux mixture 1%", "Shade management"],
+    chemical: ["Hexaconazole 5% EC @ 1 ml/L", "Triadimefon @ 0.5 g/L"],
+    prevention: "Resistant varieties, balanced nutrition." },
+  { id: "tea-blister", name: "Blister Blight", crop: "Tea", pathogen: "Exobasidium vexans (fungus)", severity: "High", overview: "Attacks tender shoots used for tea, lowering quality.", spread: "Air-borne spores", conditions: "Misty, cool, wet weather", parts: "Young leaves",
+    symptoms: ["Pale translucent spots", "Blisters with white velvety underside", "Shoots die"],
+    organic: ["Copper oxychloride 0.2%", "Pluck frequently"],
+    chemical: ["Hexaconazole @ 1 ml/L", "Propiconazole @ 0.5 ml/L"],
+    prevention: "Thin shade trees to reduce humidity." },
+  { id: "coconut-bud-rot", name: "Bud Rot", crop: "Coconut", pathogen: "Phytophthora palmivora (oomycete)", severity: "High", overview: "Kills the palm when the growing bud rots.", spread: "Rain, insects", conditions: "Monsoon, high humidity", parts: "Bud, spear leaf",
+    symptoms: ["Yellowing of spear leaf", "Spear leaf bends and falls", "Foul-smelling rot at crown"],
+    organic: ["Clean rotten tissue and apply Bordeaux paste", "Trichoderma cake at crown"],
+    chemical: ["Metalaxyl 2 g/L crown drench"],
+    prevention: "Pre-monsoon Bordeaux spray on crown." },
+  { id: "pea-powdery", name: "Powdery Mildew", crop: "Pea", pathogen: "Erysiphe pisi (fungus)", severity: "Moderate", overview: "White coating reduces pod set and quality.", spread: "Wind", conditions: "Dry days, cool nights", parts: "Leaves, pods",
+    symptoms: ["White powder on leaves and pods", "Leaves turn yellow", "Small, poorly filled pods"],
+    organic: ["Wettable sulphur 2 g/L", "Milk spray 1:9"],
+    chemical: ["Hexaconazole @ 1 ml/L", "Dinocap @ 1 ml/L"],
+    prevention: "Early sowing and resistant varieties." },
+  { id: "cabbage-black-rot", name: "Black Rot", crop: "Cabbage", pathogen: "Xanthomonas campestris (bacteria)", severity: "High", overview: "Leaves rot and heads stay small.", spread: "Seed, rain splash, tools", conditions: "Warm, wet weather", parts: "Leaves, veins",
+    symptoms: ["V-shaped yellow lesions at leaf edges", "Black veins", "Head rot"],
+    organic: ["Hot-water seed treatment (50°C, 30 min)", "Remove infected leaves"],
+    chemical: ["Streptocycline 100 ppm + Copper oxychloride 3 g/L"],
+    prevention: "Rotate 3 years away from cabbage family." },
+  { id: "carrot-leaf-blight", name: "Alternaria Leaf Blight", crop: "Carrot", pathogen: "Alternaria dauci (fungus)", severity: "Moderate", overview: "Weakens tops so roots break during harvest.", spread: "Seed and wind", conditions: "Wet, warm weather", parts: "Leaves",
+    symptoms: ["Dark brown spots with yellow edge", "Leaf tips dry", "Tops weaken"],
+    organic: ["Use clean seed", "Neem oil spray"],
+    chemical: ["Mancozeb @ 2.5 g/L", "Azoxystrobin @ 1 ml/L"],
+    prevention: "Crop rotation and drip irrigation." },
+  { id: "sunflower-downy", name: "Downy Mildew", crop: "Sunflower", pathogen: "Plasmopara halstedii (oomycete)", severity: "High", overview: "Stunts plants and gives small empty heads.", spread: "Soil and seed", conditions: "Cool, waterlogged soil at sowing", parts: "Whole plant",
+    symptoms: ["Stunted plants", "Yellow patches along veins", "White growth under leaves"],
+    organic: ["Rotate 4–5 years", "Remove infected seedlings"],
+    chemical: ["Metalaxyl seed treatment 6 g/kg"],
+    prevention: "Good drainage and resistant hybrids." },
+  { id: "mustard-white-rust", name: "White Rust", crop: "Mustard", pathogen: "Albugo candida (oomycete)", severity: "Moderate", overview: "Causes twisted flower stalks called 'stagheads'.", spread: "Wind", conditions: "Cool, foggy weather", parts: "Leaves, flowers",
+    symptoms: ["White raised blisters under leaves", "Swollen distorted flowers", "Poor seed set"],
+    organic: ["Timely sowing", "Remove stagheads"],
+    chemical: ["Metalaxyl + Mancozeb @ 2.5 g/L"],
+    prevention: "Crop rotation and clean seed." },
+  { id: "chickpea-wilt", name: "Fusarium Wilt", crop: "Chickpea", pathogen: "Fusarium oxysporum f. sp. ciceris", severity: "High", overview: "Soil-borne wilt that can destroy whole fields.", spread: "Soil and seed", conditions: "Warm, dry soil", parts: "Roots, stem",
+    symptoms: ["Drooping leaves", "Dark brown inner stem", "Plants dry in patches"],
+    organic: ["Trichoderma seed treatment 4 g/kg", "Deep summer ploughing"],
+    chemical: ["Carbendazim seed treatment 2 g/kg"],
+    prevention: "Wilt-resistant varieties and late sowing." },
+  { id: "pomegranate-blight", name: "Bacterial Blight", crop: "Pomegranate", pathogen: "Xanthomonas axonopodis pv. punicae", severity: "High", overview: "Cracks fruit and ruins market value.", spread: "Rain, tools, cuttings", conditions: "Warm, humid monsoon", parts: "Leaves, stems, fruit",
+    symptoms: ["Water-soaked leaf spots", "Black oily fruit spots", "Fruit cracking"],
+    organic: ["Prune infected parts", "Bordeaux mixture 1%"],
+    chemical: ["Streptocycline 0.5 g/L + Copper oxychloride 2.5 g/L"],
+    prevention: "Disease-free planting material; disinfect pruning tools." },
+  { id: "guava-wilt", name: "Guava Wilt", crop: "Guava", pathogen: "Fusarium oxysporum f. sp. psidii", severity: "High", overview: "Trees yellow and die branch by branch.", spread: "Soil and water", conditions: "Rainy season, alkaline soil", parts: "Roots, branches",
+    symptoms: ["Yellowing leaves", "Leaves drop", "Branches dry one by one"],
+    organic: ["Aspergillus niger / Trichoderma in pits", "Add lime and organic matter"],
+    chemical: ["Carbendazim 0.1% soil drench"],
+    prevention: "Avoid waterlogging and injury to roots." },
+  { id: "healthy", name: "Healthy Leaf", crop: "Any", pathogen: "None detected", severity: "Low",
+    symptoms: ["Uniform green colour", "No lesions or spots"],
+    organic: ["Continue compost feeding", "Monitor weekly"],
+    chemical: ["No treatment needed"],
+    prevention: "Keep balanced nutrition and good field hygiene." },
+];
+
+===== src/styles.css =====
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design system definition.
+ *
+ * The @theme inline block maps CSS custom properties to Tailwind utility
+ * classes (e.g. --color-primary -> bg-primary, text-primary).
+ *
+ * The :root and .dark blocks define the actual color values using oklch.
+ * All colors MUST use oklch format.
+ *
+ * To add a new semantic color:
+ * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ */
+
+@theme inline {
+  --font-display: "Fraunces", serif;
+  --font-sans: "DM Sans", sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.96 0.02 95);
+  --foreground: oklch(0.25 0.04 150);
+  --card: oklch(0.99 0.01 95);
+  --card-foreground: oklch(0.25 0.04 150);
+  --popover: oklch(0.99 0.01 95);
+  --popover-foreground: oklch(0.25 0.04 150);
+  --primary: oklch(0.45 0.11 150);
+  --primary-foreground: oklch(0.98 0.01 95);
+  --secondary: oklch(0.91 0.06 140);
+  --secondary-foreground: oklch(0.25 0.04 150);
+  --muted: oklch(0.92 0.02 95);
+  --muted-foreground: oklch(0.5 0.03 140);
+  --accent: oklch(0.9 0.07 75);
+  --accent-foreground: oklch(0.3 0.05 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.87 0.03 110);
+  --input: oklch(0.87 0.03 110);
+  --ring: oklch(0.45 0.11 150);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.984 0.003 247.858);
+  --sidebar-foreground: oklch(0.129 0.042 264.695);
+  --sidebar-primary: oklch(0.208 0.042 265.755);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.968 0.007 247.896);
+  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
+  --sidebar-border: oklch(0.929 0.013 255.508);
+  --sidebar-ring: oklch(0.704 0.04 256.788);
+}
+
+.dark {
+  --background: oklch(0.129 0.042 264.695);
+  --foreground: oklch(0.984 0.003 247.858);
+  --card: oklch(0.208 0.042 265.755);
+  --card-foreground: oklch(0.984 0.003 247.858);
+  --popover: oklch(0.208 0.042 265.755);
+  --popover-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.929 0.013 255.508);
+  --primary-foreground: oklch(0.208 0.042 265.755);
+  --secondary: oklch(0.279 0.041 260.031);
+  --secondary-foreground: oklch(0.984 0.003 247.858);
+  --muted: oklch(0.279 0.041 260.031);
+  --muted-foreground: oklch(0.704 0.04 256.788);
+  --accent: oklch(0.279 0.041 260.031);
+  --accent-foreground: oklch(0.984 0.003 247.858);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.984 0.003 247.858);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.551 0.027 264.364);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.208 0.042 265.755);
+  --sidebar-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-accent: oklch(0.279 0.041 260.031);
+  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.551 0.027 264.364);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+.scan-line { animation: scan 1.6s ease-in-out infinite alternate; }
+@keyframes scan { from { top: 0; } to { top: calc(100% - 4px); } }
+
